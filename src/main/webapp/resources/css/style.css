@@ -1,0 +1,182 @@
+body{
+    background: linear-gradient(to right, #4a74b5, #ac4db5);
+}
+table#headerContainer{
+    width: 100%;
+    background: rgba(255, 0, 0, .02);
+}
+.start-page-welcome-message, .start-page-link-to-main, .clock-panel {
+    color: rgba(0, 0, 0, 0);
+    font-family: 'Noto Sans Mono', monospace;
+    text-align: center;
+    margin-top: 5%;
+    font-size: 36px;
+
+    animation-name: fadeIn;
+    animation-duration: 3s;
+    animation-fill-mode: forwards;
+}
+
+.start-page-link-to-main {
+    animation-delay: 1s;
+    text-decoration: none;
+}
+.start-page-link-to-main *:hover {
+    animation-delay: 1s;
+    color: rgba(100, 0, 0, 100);
+}
+h1#mainHeaderText{
+    margin-left: 1%;
+    opacity: 100%;
+    font-family: serif;
+    color: rgba(255, 252, 238, 0.63);
+}
+td#rightHeaderPart{
+    padding-right: 2%;
+    font-family: serif;
+    color: rgb(231, 194, 195);
+    text-align: right;
+}
+#imageContainer{
+    padding-top: 5%;
+    width: 300px;
+    height: 300px;
+    justify-content: center;
+    margin: auto;
+}
+.scroll {
+    overflow-y: auto;
+    height: 200px;
+    display: flex;
+    flex-direction: column-reverse;
+}
+
+#result-grid{
+    height: 300px;
+    width: 300px;
+    text-align: center;
+}
+
+td#imageCell{
+    text-align: center;
+}
+table#inputContainer{
+    width: 1px;
+    text-align: center;
+    border: 0;
+    margin: auto;
+    border-spacing: 0 10px;
+}
+table#inputContainer tr{
+    margin-left: 10%;
+    font-family: monospace, "JetBrains Mono Medium" ;
+    font-size: 14px;
+    color: whitesmoke;
+}
+tr#inputDataHeader{
+    text-align: center;
+}
+.text-input{
+    text-align: left;
+}
+input#xCoordinate{
+    background-color: rgba(255, 255, 255, 0.5);
+    border: 0 solid;
+}
+#inputX{
+    text-align: center;
+}
+#XSelectRow {
+    text-align: center;
+}
+
+#inputR{
+    text-align: left;
+
+}
+.options{
+    display: flex;
+}
+#XSelect {
+    background: transparent;
+    color: whitesmoke;
+    text-align: center;
+
+}
+
+.slider {
+    text-align: center;
+    align-items: center;
+}
+label:not([for]) {
+    width: 100%;
+    background: rgba(255, 156, 161, 0.2);
+    padding: 0 2px;
+    border: solid 0 transparent;
+    opacity: 80%;
+    text-align: center;
+
+}
+label + label {
+    margin-inline-start: 2%;
+}
+td#buttonContainer{
+    text-align: center;
+}
+.submit-button{
+    background-color: rgba(76, 175, 64, 0.65);
+    border: none;
+    color: white;
+    padding: 2% 5%;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    margin: 5% 5% 5% 50px;
+    cursor: pointer;
+}
+.submit-button:hover {
+    background-color: rgba(76, 175, 64, 0.9);
+}
+.back-to-start {
+    font-family: "Courier New", monospace;
+    font-size: 16px;
+    text-decoration: none;
+}
+.result-table{
+    width: 100%;
+    background-color: rgba(250, 235, 215, 0.64);
+    transition-property: background-color;
+    transition-duration: 3s;
+}
+.result-table tr {
+    text-align: center;
+    font-family: "Courier New", Courier, "Lucida Sans Typewriter", "Lucida Typewriter", monospace;
+}
+.yes-no-marker {
+    background-repeat: no-repeat;
+    mix-blend-mode: multiply;
+    animation-duration: 1s;
+    animation-name: slideIn;
+    width: 32px;
+    height: 32px;
+}
+@keyframes slideIn {
+    from {
+        width: 0;
+        height: 0;
+    }
+    to {
+        width: 32px;
+        height: 32px;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        color: rgba(0, 0, 0, 0);
+    }
+    to {
+        color: rgba(0, 0, 0, 1);
+    }
+}
+

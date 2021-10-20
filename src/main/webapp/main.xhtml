@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:ace="http://www.icefaces.org/icefaces/components"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="WEB-INF/template.xhtml">
+
+    <ui:define name="head">
+        <title>web-lab-3: main page</title>
+        <h:outputStylesheet library="css" name="style.css"/>
+    </ui:define>
+
+    <ui:define name="main">
+        <div id="imageContainer">
+            <canvas width="300" height="300" id="graph-canvas">Интерактивная область графика</canvas>
+        </div>
+
+        <h:form class="hidden-input" style="display: none">
+            <h:inputText styleClass="canvasX" value="#{entries.canvasEntry.x}">
+                <f:ajax event="change" execute="@all" render="@all"/>
+            </h:inputText>
+            <h:inputText styleClass="canvasY" value="#{entries.canvasEntry.y}">
+                <f:ajax event="change" execute="@all" render="@all"/>
+            </h:inputText>
+            <h:inputText styleClass="canvasR" value="#{entries.canvasEntry.r}">
+                <f:ajax event="change" execute="@all" render="@all"/>
+            </h:inputText>
+            <h:commandButton styleClass="hidden-submit-button"
+                             type="submit"
+                             value="Check!"
+                             action="#{entries.addCanvasEntry}">
+                <f:ajax render="@all" onevent="redrawListener"/>
+            </h:commandButton>
+        </h:form>
+
+        <h:form>
+            <table id="inputContainer">
+                <tr id="inputDataHeader">
+                    <td colspan="100%">
+                        <h2>Введите данные:</h2>
+                    </td>
+                </tr>
+                <tr id="inputX" align="center">
+                    <td>
+                        X:
+                    </td>
+                    <td id="XSelectRow">
+                        <div class="slider">
+                            <ace:sliderEntry
+                                    id="ace_slider"
+                                    value="#{entries.entry.x}"
+                                    min="-3"
+                                    max="3"
+                                    axis="x"
+                                    length="372px"
+                                    stepPercent="16.6666667f"
+                                    showLabels="false">
+                                <ace:ajax event="slideEnd" execute="@this" render="@form"/>
+                            </ace:sliderEntry>
+                            <br/>
+                            <h:outputText id="sliderValue" value="#{entries.entry.x}"/>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr class="text-input">
+                    <td>
+                        <label for="yCoordinate">
+                            Y:
+                        </label>
+
+                    </td>
+                    <td>
+                        <h:inputText
+                                id="yCoordinate"
+                                maxlength="3"
+                                value="#{entries.entry.y}"
+                                size="50"
+                                a:placeholder="Введите число в интервале (-5; 3)"
+                                validatorMessage="Ожидается число от -5 до 3">
+                            <f:validateRequired/>
+                            <f:validateDoubleRange minimum="-5" maximum="3"/>
+                            <f:ajax execute="@this" render="@all"/>
+                        </h:inputText>
+                        <h:message for="yCoordinate"/>
+                    </td>
+                </tr>
+
+                <tr class="text-input">
+                    <td>
+                        <label for="rCoordinate">
+                            R:
+                        </label>
+
+                    </td>
+                    <td>
+                        <h:inputText
+                                styleClass="h-input-r"
+                                value="#{entries.entry.r}"
+                                id="rCoordinate"
+                                maxlength="3"
+                                size="50"
+                                a:placeholder="Введите число в интервале (2; 5)"
+                                validatorMessage="Ожидается число от 2 до 5">
+                            <f:validateRequired/>
+                            <f:validateDoubleRange minimum="2" maximum="5"/>
+                            <f:ajax execute="@this" render="@all"/>
+                        </h:inputText>
+                        <h:message for="rCoordinate"/>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td colspan="100%" id="buttonContainer">
+                        <h:commandButton styleClass="submit-button"
+                                         type="submit"
+                                         value="Check!"
+                                         action="#{entries.addEntry}">
+                            <f:ajax render="@all" onevent="redrawListener"/>
+                        </h:commandButton>
+                        <h:link styleClass="back-to-start" outcome="back-to-startpage">На стартовую</h:link>
+                    </td>
+                </tr>
+            </table>
+        </h:form>
+
+        <div class="scroll">
+            <h:dataTable id="results" styleClass="result-table" value="#{entries.entries}" var="entry">
+                <h:column headerClass="table-header">
+                    <f:facet name="header">X</f:facet>
+                    <h:outputText styleClass="x-table-value" value="#{entry.x}"/>
+                </h:column>
+                <h:column headerClass="table-header">
+                    <f:facet name="header">Y</f:facet>
+                    <h:outputText styleClass="y-table-value" value="#{entry.y}"/>
+                </h:column>
+                <h:column headerClass="table-header">
+                    <f:facet name="header">R</f:facet>
+                    <h:outputText styleClass="r-table-value" value="#{entry.r}"/>
+                </h:column>
+                <h:column headerClass="table-header">
+                    <f:facet name="header">Результат</f:facet>
+                    <h:outputText styleClass="hit-table-value" value="#{entry.hit}"/>
+                </h:column>
+            </h:dataTable>
+        </div>
+        <h:outputScript library="js" name="main.js"></h:outputScript>
+    </ui:define>
+</ui:composition>
+</html>
