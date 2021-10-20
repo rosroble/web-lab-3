@@ -1,8 +1,4 @@
 let x, y, r;
-const X_VALUES = ['-4', '-3', '-2', '-1', '0', '1', '2', '3', '4'];
-const R_VALUES = [2, 3, 4, 5];
-let errorMessage = "";
-const maxLength = 15;
 let canvas;
 
 canvas = $("#graph-canvas");
@@ -90,50 +86,11 @@ function isNumber(input) {
     return !isNaN(parseFloat(input)) && isFinite(input);
 }
 
-function addToErrorMessage(errorDesc) {
-    errorMessage += (errorDesc + "\n");
-}
 
 function hasProperLength(input) {
     return input.length <= maxLength;
 }
 
-function validateX() {
-    const selector = document.getElementById("XSelect");
-    const selectedValue = selector.value;
-    if (!(X_VALUES.includes(selectedValue))) {
-        addToErrorMessage("HTML modified. Restart the page.");
-        console.log("x");
-        return false;
-    }
-    if (selectedValue === "") {
-        addToErrorMessage("Нужно выбрать X");
-        return false;
-    }
-    x = selectedValue;
-    return true;
-}
-
-function validateY() {
-    y = document.querySelector("input[id=yCoordinate]").value.replace(",", ".");
-    if (y === undefined) {
-        addToErrorMessage("Поле Y не заполнено");
-        return false;
-    }
-    if (!isNumber(y)) {
-        addToErrorMessage("Y должен быть числом от -3 до 3!");
-        return false;
-    }
-    if (!hasProperLength(y)) {
-        addToErrorMessage(`Длина числа должна быть не более ${maxLength} символов`);
-        return false;
-    }
-    if (!((y > -3) && (y < 3))) {
-        addToErrorMessage("Нарушена область допустимых значений Y (-3; 3)");
-        return false;
-    }
-    return true;
-}
 
 
 function validateR() {
@@ -143,34 +100,6 @@ function validateR() {
     return r >= 2 && r <= 5;
 
 }
-
-function submit() {
-    if (validateX() & validateY() & validateR()) {
-        sendCheckAreaRequest(x, y, r);
-    }
-    if (!(errorMessage === "")) {
-        alert(errorMessage);
-        errorMessage = "";
-    }
-}
-
-function sendCheckAreaRequest(x, y, r) {
-    return $.post("process", {
-        'x': x,
-        'y': y,
-        'r': r
-    }).done(function (result, status, xhr) {
-        if (xhr.getResponseHeader('isValid') === "true") {
-            $('#result-table tr:first').after(result);
-            drawPointByRelativeCoordinates(x, y, r);
-            return true;
-        }
-    })
-}
-
-// lab3 functions -------------------
-
-
 
 function drawCanvas() {
     const ctx = canvas[0].getContext('2d');
